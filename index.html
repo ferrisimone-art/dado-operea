@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Dado delle Opere</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f4f9; }
+    h1 { margin-bottom: 20px; }
+    #dice { font-size: 100px; cursor: pointer; transition: transform 0.2s; }
+    #dice:hover { transform: scale(1.1); }
+    #result { margin-top: 30px; font-size: 24px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🎲 Lancia il dado e scopri l'opera!</h1>
+  <div id="dice">⚀</div>
+  <div id="result">Clicca sul dado per iniziare</div>
+
+  <script>
+    const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+    const opere = [
+      "Opera 1: La Traviata",
+      "Opera 2: Il Barbiere di Siviglia",
+      "Opera 3: Don Giovanni",
+      "Opera 4: Carmen",
+      "Opera 5: Aida",
+      "Opera 6: Turandot"
+    ];
+
+    const dice = document.getElementById("dice");
+    const result = document.getElementById("result");
+
+    dice.addEventListener("click", () => {
+      const roll = Math.floor(Math.random() * 6);
+      dice.textContent = diceFaces[roll];
+      result.textContent = opere[roll];
+    });
+  </script>
+</body>
+</html>
