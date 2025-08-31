@@ -8,25 +8,32 @@
     h1 { margin-bottom: 20px; }
     #dice { font-size: 100px; cursor: pointer; transition: transform 0.2s; }
     #dice:hover { transform: scale(1.1); }
-    #result { margin-top: 20px; font-size: 24px; font-weight: bold; }
-    #opera-img { margin-top: 20px; max-width: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    #result { margin-top: 20px; font-size: 28px; font-weight: bold; }
+    #opera-img {
+      display: none;
+      margin: 30px auto 0 auto;
+      max-width: 80%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
   <h1>🎲 Lancia il dado e scopri l'opera!</h1>
   <div id="dice">⚀</div>
   <div id="result">Clicca sul dado per iniziare</div>
-  <img id="opera-img" src="" alt="Opera" style="display:none;">
+  <img id="opera-img" src="" alt="Opera">
 
   <script>
     const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
     const opere = [
-      {nome: "traviata", img: "traviata.jpg"},
-      {nome: "barbieredisiviglia", img: "barbieredisiviglia.jpg"},
-      {nome: "dongiovanni", img: "dongiovanni.jpg"},
-      {nome: "carmen", img: "carmen.jpg"},
-      {nome: "aida", img: "aida.jpg"},
-      {nome: "turandot", img: "turandot.jpg"}
+      {nome: "La Traviata", img: "traviata.jpg"},
+      {nome: "Il Barbiere di Siviglia", img: "barbiere.jpg"},
+      {nome: "Don Giovanni", img: "dongiovanni.jpg"},
+      {nome: "Carmen", img: "carmen.jpg"},
+      {nome: "Aida", img: "aida.jpg"},
+      {nome: "Turandot", img: "turandot.jpg"}
     ];
 
     const dice = document.getElementById("dice");
@@ -43,3 +50,4 @@
   </script>
 </body>
 </html>
+
