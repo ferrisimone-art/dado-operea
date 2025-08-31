@@ -15,10 +15,10 @@
 
     /* Cubo 3D */
     .scene {
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       margin: 0 auto;
-      perspective: 600px;
+      perspective: 800px;
       cursor: pointer;
     }
     .cube {
@@ -30,23 +30,24 @@
     }
     .face {
       position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
       background: #fff;
       border: 3px solid #000;
       border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 40px;
+      font-size: 70px; /* numeri grandi */
       font-weight: bold;
+      color: #000;
     }
-    .front  { transform: rotateY(  0deg) translateZ(60px); }
-    .back   { transform: rotateY(180deg) translateZ(60px); }
-    .right  { transform: rotateY( 90deg) translateZ(60px); }
-    .left   { transform: rotateY(-90deg) translateZ(60px); }
-    .top    { transform: rotateX( 90deg) translateZ(60px); }
-    .bottom { transform: rotateX(-90deg) translateZ(60px); }
+    .front  { transform: rotateY(  0deg) translateZ(75px); }
+    .back   { transform: rotateY(180deg) translateZ(75px); }
+    .right  { transform: rotateY( 90deg) translateZ(75px); }
+    .left   { transform: rotateY(-90deg) translateZ(75px); }
+    .top    { transform: rotateX( 90deg) translateZ(75px); }
+    .bottom { transform: rotateX(-90deg) translateZ(75px); }
 
     #result { margin-top: 30px; font-size: 28px; font-weight: bold; }
     #opera-img {
@@ -64,12 +65,12 @@
 
   <div class="scene">
     <div class="cube" id="cube">
-      <div class="face front">⚀</div>
-      <div class="face back">⚁</div>
-      <div class="face right">⚂</div>
-      <div class="face left">⚃</div>
-      <div class="face top">⚄</div>
-      <div class="face bottom">⚅</div>
+      <div class="face front">1</div>
+      <div class="face back">2</div>
+      <div class="face right">3</div>
+      <div class="face left">4</div>
+      <div class="face top">5</div>
+      <div class="face bottom">6</div>
     </div>
   </div>
 
@@ -94,12 +95,12 @@
       const roll = Math.floor(Math.random() * 6);
       let x = 0, y = 0;
       switch(roll){
-        case 0: x = 0;   y = 0; break;    // ⚀ front
-        case 1: x = 0;   y = 180; break;  // ⚁ back
-        case 2: x = 0;   y = -90; break;  // ⚂ left
-        case 3: x = 0;   y = 90; break;   // ⚃ right
-        case 4: x = -90; y = 0; break;    // ⚄ top
-        case 5: x = 90;  y = 0; break;    // ⚅ bottom
+        case 0: x = 0;   y = 0; break;    // 1 front
+        case 1: x = 0;   y = 180; break;  // 2 back
+        case 2: x = 0;   y = -90; break;  // 3 left
+        case 3: x = 0;   y = 90; break;   // 4 right
+        case 4: x = -90; y = 0; break;    // 5 top
+        case 5: x = 90;  y = 0; break;    // 6 bottom
       }
       cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
 
@@ -110,4 +111,3 @@
   </script>
 </body>
 </html>
-
