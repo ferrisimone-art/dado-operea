@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <title>Dado delle Opere</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
     body {
-      font-family: 'Comic Neue', cursive, sans-serif;
+      font-family: 'Playfair Display', serif;
       text-align: center;
       padding: 50px;
       background-color: #1c4030; /* verdino scuro */
@@ -15,14 +15,15 @@
     }
 
     .title {
-      font-size: 32px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 15px;
       color: #ffdf6c;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
     h1 {
       margin-bottom: 30px;
+      font-size: 24px;
     }
 
     /* Cubo 3D ridotto */
@@ -78,6 +79,7 @@
       border-radius: 15px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
+
   </style>
 </head>
 <body>
@@ -113,21 +115,31 @@
     const operaImg = document.getElementById("opera-img");
 
     cube.addEventListener("click", () => {
-      const roll = Math.floor(Math.random() * 6);
-      let x = 0, y = 0;
-      switch(roll){
-        case 0: x = 0;   y = 0; break;    // 1 front
-        case 1: x = 0;   y = 180; break;  // 2 back
-        case 2: x = 0;   y = -90; break;  // 3 left
-        case 3: x = 0;   y = 90; break;   // 4 right
-        case 4: x = -90; y = 0; break;    // 5 top
-        case 5: x = 90;  y = 0; break;    // 6 bottom
-      }
-      cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+      // Rotazione casuale multipla per effetto lancio
+      const randomX = 720 + Math.floor(Math.random() * 360);
+      const randomY = 720 + Math.floor(Math.random() * 360);
+      cube.style.transition = "transform 1.5s ease-out";
+      cube.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
 
-      result.textContent = opere[roll].nome;
-      operaImg.src = opere[roll].img;
-      operaImg.style.display = "block";
+      // Dopo 1.5s mostra il risultato
+      setTimeout(() => {
+        const roll = Math.floor(Math.random() * 6);
+        let x = 0, y = 0;
+        switch(roll){
+          case 0: x = 0;   y = 0; break;
+          case 1: x = 0;   y = 180; break;
+          case 2: x = 0;   y = -90; break;
+          case 3: x = 0;   y = 90; break;
+          case 4: x = -90; y = 0; break;
+          case 5: x = 90;  y = 0; break;
+        }
+        cube.style.transition = "transform 0.8s ease-out";
+        cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+
+        result.textContent = opere[roll].nome;
+        operaImg.src = opere[roll].img;
+        operaImg.style.display = "block";
+      }, 1500);
     });
   </script>
 </body>
