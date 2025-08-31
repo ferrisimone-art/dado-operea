@@ -15,10 +15,10 @@
 
     /* Cubo 3D */
     .scene {
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
       margin: 0 auto;
-      perspective: 800px;
+      perspective: 600px;
       cursor: pointer;
     }
     .cube {
@@ -30,38 +30,39 @@
     }
     .face {
       position: absolute;
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
       background: #fff;
-      border: 3px solid #000;
-      border-radius: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: space-between;
-      justify-content: space-between;
-      padding: 20px;
+      border: 2px solid #000;
+      border-radius: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 8px;
     }
     .dot {
-      width: 30px;
-      height: 30px;
+      width: 16px;
+      height: 16px;
       background: #000;
       border-radius: 50%;
+      justify-self: center;
+      align-self: center;
     }
 
-    .front  { transform: rotateY(  0deg) translateZ(75px); }
-    .back   { transform: rotateY(180deg) translateZ(75px); }
-    .right  { transform: rotateY( 90deg) translateZ(75px); }
-    .left   { transform: rotateY(-90deg) translateZ(75px); }
-    .top    { transform: rotateX( 90deg) translateZ(75px); }
-    .bottom { transform: rotateX(-90deg) translateZ(75px); }
+    .front  { transform: rotateY(  0deg) translateZ(50px); }
+    .back   { transform: rotateY(180deg) translateZ(50px); }
+    .right  { transform: rotateY( 90deg) translateZ(50px); }
+    .left   { transform: rotateY(-90deg) translateZ(50px); }
+    .top    { transform: rotateX( 90deg) translateZ(50px); }
+    .bottom { transform: rotateX(-90deg) translateZ(50px); }
 
-    #result { margin-top: 30px; font-size: 28px; font-weight: bold; }
+    #result { margin-top: 30px; font-size: 24px; font-weight: bold; }
     #opera-img {
       display: none;
       margin: 30px auto 0 auto;
-      max-width: 95%;
+      max-width: 90%;
       height: auto;
-      border-radius: 20px;
+      border-radius: 15px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
   </style>
@@ -73,42 +74,42 @@
     <div class="cube" id="cube">
       <!-- 1 -->
       <div class="face front">
-        <div class="dot" style="margin:auto"></div>
+        <div class="dot" style="grid-column:2; grid-row:2;"></div>
       </div>
       <!-- 2 -->
       <div class="face back">
-        <div class="dot"></div>
-        <div class="dot" style="align-self:flex-end; justify-self:flex-end"></div>
+        <div class="dot" style="grid-column:1; grid-row:1;"></div>
+        <div class="dot" style="grid-column:3; grid-row:3;"></div>
       </div>
       <!-- 3 -->
       <div class="face right">
-        <div class="dot"></div>
-        <div class="dot" style="margin:auto"></div>
-        <div class="dot" style="align-self:flex-end; justify-self:flex-end"></div>
+        <div class="dot" style="grid-column:1; grid-row:1;"></div>
+        <div class="dot" style="grid-column:2; grid-row:2;"></div>
+        <div class="dot" style="grid-column:3; grid-row:3;"></div>
       </div>
       <!-- 4 -->
       <div class="face left">
-        <div class="dot"></div>
-        <div class="dot" style="justify-self:flex-end"></div>
-        <div class="dot" style="align-self:flex-end"></div>
-        <div class="dot" style="align-self:flex-end; justify-self:flex-end"></div>
+        <div class="dot" style="grid-column:1; grid-row:1;"></div>
+        <div class="dot" style="grid-column:3; grid-row:1;"></div>
+        <div class="dot" style="grid-column:1; grid-row:3;"></div>
+        <div class="dot" style="grid-column:3; grid-row:3;"></div>
       </div>
       <!-- 5 -->
       <div class="face top">
-        <div class="dot"></div>
-        <div class="dot" style="justify-self:flex-end"></div>
-        <div class="dot" style="margin:auto"></div>
-        <div class="dot" style="align-self:flex-end"></div>
-        <div class="dot" style="align-self:flex-end; justify-self:flex-end"></div>
+        <div class="dot" style="grid-column:1; grid-row:1;"></div>
+        <div class="dot" style="grid-column:3; grid-row:1;"></div>
+        <div class="dot" style="grid-column:2; grid-row:2;"></div>
+        <div class="dot" style="grid-column:1; grid-row:3;"></div>
+        <div class="dot" style="grid-column:3; grid-row:3;"></div>
       </div>
       <!-- 6 -->
       <div class="face bottom">
-        <div class="dot"></div>
-        <div class="dot" style="justify-self:flex-end"></div>
-        <div class="dot" style="margin-left:auto"></div>
-        <div class="dot" style="margin-right:auto"></div>
-        <div class="dot" style="align-self:flex-end"></div>
-        <div class="dot" style="align-self:flex-end; justify-self:flex-end"></div>
+        <div class="dot" style="grid-column:1; grid-row:1;"></div>
+        <div class="dot" style="grid-column:3; grid-row:1;"></div>
+        <div class="dot" style="grid-column:1; grid-row:2;"></div>
+        <div class="dot" style="grid-column:3; grid-row:2;"></div>
+        <div class="dot" style="grid-column:1; grid-row:3;"></div>
+        <div class="dot" style="grid-column:3; grid-row:3;"></div>
       </div>
     </div>
   </div>
@@ -150,4 +151,5 @@
   </script>
 </body>
 </html>
+
 
