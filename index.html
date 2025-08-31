@@ -4,45 +4,105 @@
   <meta charset="UTF-8">
   <title>Dado delle Opere</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f4f9; }
-    h1 { margin-bottom: 20px; }
-    #dice { font-size: 100px; cursor: pointer; transition: transform 0.2s; }
-    #dice:hover { transform: scale(1.1); }
-    #result { margin-top: 20px; font-size: 28px; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #1c4030; /* verdino scuro */
+      color: #fff;
+    }
+    h1 { margin-bottom: 30px; }
+
+    /* Cubo 3D */
+    .scene {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      perspective: 600px;
+      cursor: pointer;
+    }
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+    .face {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: #fff;
+      border: 3px solid #000;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
+    }
+    .front  { transform: rotateY(  0deg) translateZ(60px); }
+    .back   { transform: rotateY(180deg) translateZ(60px); }
+    .right  { transform: rotateY( 90deg) translateZ(60px); }
+    .left   { transform: rotateY(-90deg) translateZ(60px); }
+    .top    { transform: rotateX( 90deg) translateZ(60px); }
+    .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+    #result { margin-top: 30px; font-size: 28px; font-weight: bold; }
     #opera-img {
       display: none;
       margin: 30px auto 0 auto;
       max-width: 95%;
       height: auto;
       border-radius: 20px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
   </style>
 </head>
 <body>
   <h1>🎲 Lancia il dado e scopri l'opera!</h1>
-  <div id="dice">⚀</div>
+
+  <div class="scene">
+    <div class="cube" id="cube">
+      <div class="face front">⚀</div>
+      <div class="face back">⚁</div>
+      <div class="face right">⚂</div>
+      <div class="face left">⚃</div>
+      <div class="face top">⚄</div>
+      <div class="face bottom">⚅</div>
+    </div>
+  </div>
+
   <div id="result">Clicca sul dado per iniziare</div>
   <img id="opera-img" src="" alt="Opera">
 
   <script>
-    const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
     const opere = [
       {nome: "La Traviata", img: "traviata.jpg"},
-      {nome: "Il Barbiere di Siviglia", img: "barbieredisiviglia.jpg"}
+      {nome: "Il Barbiere di Siviglia", img: "barbieredisiviglia.jpg"},
       {nome: "Don Giovanni", img: "dongiovanni.jpg"},
       {nome: "Carmen", img: "carmen.jpg"},
       {nome: "Aida", img: "aida.jpg"},
       {nome: "Turandot", img: "turandot.jpg"}
     ];
 
-    const dice = document.getElementById("dice");
+    const cube = document.getElementById("cube");
     const result = document.getElementById("result");
     const operaImg = document.getElementById("opera-img");
 
-    dice.addEventListener("click", () => {
+    cube.addEventListener("click", () => {
       const roll = Math.floor(Math.random() * 6);
-      dice.textContent = diceFaces[roll];
+      let x = 0, y = 0;
+      switch(roll){
+        case 0: x = 0;   y = 0; break;    // ⚀ front
+        case 1: x = 0;   y = 180; break;  // ⚁ back
+        case 2: x = 0;   y = -90; break;  // ⚂ left
+        case 3: x = 0;   y = 90; break;   // ⚃ right
+        case 4: x = -90; y = 0; break;    // ⚄ top
+        case 5: x = 90;  y = 0; break;    // ⚅ bottom
+      }
+      cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+
       result.textContent = opere[roll].nome;
       operaImg.src = opere[roll].img;
       operaImg.style.display = "block";
