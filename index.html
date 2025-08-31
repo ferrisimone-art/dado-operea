@@ -1,66 +1,84 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Museo Lorenzo Ferri</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Raleway:wght@400;600&display=swap');
 
-    body {
-      font-family: 'Raleway', sans-serif;
-      text-align: center;
-      padding: 40px;
-      background: radial-gradient(circle at top left, #234d35, #1c4030, #12281f);
+    :root{
+      --green-1:#234d35;
+      --green-2:#1c4030;
+      --green-3:#12281f;
+      --gold:#ffdf6c;
+    }
+
+    /* Sfondo artistico: gradiente + texture tipo tela */
+    body{
+      margin:0;
+      padding:40px 20px 60px;
+      text-align:center;
+      color:#fff;
+      font-family:'Raleway',sans-serif;
+      background:
+        radial-gradient(1400px 800px at 10% 0%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(1200px 700px at 100% 20%, rgba(0,0,0,.15), transparent 60%),
+        linear-gradient(135deg, var(--green-1), var(--green-2) 55%, var(--green-3));
       background-attachment: fixed;
-      color: #fff;
+      position:relative;
+      overflow-x:hidden;
+    }
+    /* grana leggera sopra il gradiente */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.03), transparent 60%),
+        radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,.02), transparent 60%),
+        radial-gradient(1px 1px at 40% 80%, rgba(0,0,0,.05), transparent 60%);
+      mix-blend-mode: overlay;
     }
 
-    .title {
-      font-family: 'Playfair Display', serif;
-      font-size: 40px;
-      margin-bottom: 15px;
-      color: #ffdf6c;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+    .title{
+      font-family:'Playfair Display',serif;
+      font-size:40px;
+      margin:0 0 6px;
+      color:var(--gold);
+      text-shadow:3px 3px 6px rgba(0,0,0,.55);
     }
-
-    h1 {
-      margin-bottom: 30px;
-      font-size: 24px;
-      color: #eee;
+    h1{
+      margin:0 0 28px;
+      font-size:22px;
+      color:#eee;
+      font-weight:600;
     }
 
     /* Cubo 3D */
-    .scene {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto;
-      perspective: 1000px;
-      cursor: pointer;
+    .scene{
+      width:120px; height:120px;
+      margin:0 auto 10px;
+      perspective:1000px;
+      cursor:pointer;
+      user-select:none;
     }
-
-    .cube {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 2s ease-out;
+    .cube{
+      width:100%; height:100%;
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform 2s ease-out; /* più lento e fluido */
     }
-
-    .face {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      background: #fff;
-      border: 2px solid #000;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 38px;
-      font-weight: bold;
-      color: #000;
+    .face{
+      position:absolute;
+      width:120px; height:120px;
+      background:#fff;
+      border:2px solid #000;
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:38px; font-weight:700; color:#000;
+      box-shadow:0 6px 12px rgba(0,0,0,.25) inset;
     }
-
     .front  { transform: rotateY(  0deg) translateZ(60px); }
     .back   { transform: rotateY(180deg) translateZ(60px); }
     .right  { transform: rotateY( 90deg) translateZ(60px); }
@@ -68,50 +86,52 @@
     .top    { transform: rotateX( 90deg) translateZ(60px); }
     .bottom { transform: rotateX(-90deg) translateZ(60px); }
 
-    #result {
-      margin-top: 30px;
-      font-size: 28px;
-      font-weight: bold;
-      font-family: 'Playfair Display', serif;
-      color: #ffd966;
+    #result{
+      margin-top:18px;
+      font-size:26px;
+      font-weight:700;
+      font-family:'Playfair Display',serif;
+      color:#ffd966;
+      min-height:1.4em;
     }
 
-    #opera-img {
-      display: none;
-      margin: 30px auto 10px auto;
-      max-width: 85%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      opacity: 0;
-      transition: opacity 1.5s ease-in;
+    #opera-img{
+      display:none;
+      margin:22px auto 10px;
+      max-width:85%;
+      height:auto;
+      border-radius:20px;
+      box-shadow:0 10px 26px rgba(0,0,0,.55);
+      opacity:0;
+      transition:opacity 1.5s ease-in;
+    }
+    #opera-img.show{
+      display:block;
+      opacity:1;
     }
 
-    #opera-img.show {
-      display: block;
-      opacity: 1;
+    #opera-desc{
+      font-size:18px;
+      max-width:760px;
+      margin:0 auto;
+      color:#e9e9e9;
+      line-height:1.45;
+      opacity:0;
+      transition:opacity 1.5s ease-in;
+      padding:0 10px;
     }
+    #opera-desc.show{ opacity:1; }
 
-    #opera-desc {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #ddd;
-      opacity: 0;
-      transition: opacity 1.5s ease-in;
-    }
-
-    #opera-desc.show {
-      opacity: 1;
-    }
+    /* piccolo aiuto al tocco */
+    .hint{ font-size:14px; opacity:.8; margin-top:6px; }
   </style>
 </head>
 <body>
   <div class="title">🏛️ Museo Lorenzo Ferri</div>
   <h1>🎲 Lancia il dado e scopri l'opera!</h1>
 
-  <div class="scene">
-    <div class="cube" id="cube">
+  <div class="scene" id="scene">
+    <div class="cube" id="cube" aria-label="Dado, clicca per lanciare">
       <div class="face front">1</div>
       <div class="face back">2</div>
       <div class="face right">3</div>
@@ -120,43 +140,26 @@
       <div class="face bottom">6</div>
     </div>
   </div>
+  <div class="hint">Clicca o tocca il dado</div>
 
   <div id="result">Clicca sul dado per iniziare</div>
-  <img id="opera-img" src="" alt="Opera">
+  <img id="opera-img" src="" alt="Opera selezionata" />
   <p id="opera-desc"></p>
 
   <script>
     const opere = [
-      {
-        nome: "La Traviata",
-        img: "traviata.jpg",
-        desc: "Opera di Giuseppe Verdi, rappresentata per la prima volta nel 1853, una delle più celebri e drammatiche storie d’amore."
-      },
-      {
-        nome: "Il Barbiere di Siviglia",
-        img: "barbieredisiviglia.jpg",
-        desc: "Capolavoro comico di Gioachino Rossini del 1816, con il celebre personaggio di Figaro."
-      },
-      {
-        nome: "Don Giovanni",
-        img: "dongiovanni.jpg",
-        desc: "Opera di Wolfgang Amadeus Mozart, rappresentata nel 1787, dramma giocoso tra passione e destino."
-      },
-      {
-        nome: "Carmen",
-        img: "carmen.jpg",
-        desc: "Opera di Georges Bizet del 1875, ambientata in Spagna, celebre per le sue arie appassionate."
-      },
-      {
-        nome: "Aida",
-        img: "aida.jpg",
-        desc: "Opera di Giuseppe Verdi del 1871, ambientata nell’antico Egitto, tra amore e dovere."
-      },
-      {
-        nome: "Turandot",
-        img: "turandot.jpg",
-        desc: "Ultima opera incompiuta di Giacomo Puccini (1926), con la celebre aria 'Nessun dorma'."
-      }
+      { nome: "La Traviata", img: "traviata.jpg",
+        desc: "Giuseppe Verdi (1853). Una delle storie d’amore più celebri del melodramma italiano." },
+      { nome: "Il Barbiere di Siviglia", img: "barbieredisiviglia.jpg",
+        desc: "Gioachino Rossini (1816). Capolavoro comico con il brillante Figaro." },
+      { nome: "Don Giovanni", img: "dongiovanni.jpg",
+        desc: "W. A. Mozart (1787). Tra passione e destino, dramma giocoso di straordinaria modernità." },
+      { nome: "Carmen", img: "carmen.jpg",
+        desc: "Georges Bizet (1875). Ambientata in Spagna, celebre per il suo carattere ardente." },
+      { nome: "Aida", img: "aida.jpg",
+        desc: "Giuseppe Verdi (1871). Amore e dovere nell’antico Egitto, con scene grandiose." },
+      { nome: "Turandot", img: "turandot.jpg",
+        desc: "Giacomo Puccini (1926). Ultima opera incompiuta, famosa per “Nessun dorma”." }
     ];
 
     const cube = document.getElementById("cube");
@@ -164,8 +167,20 @@
     const operaImg = document.getElementById("opera-img");
     const operaDesc = document.getElementById("opera-desc");
 
+    function orientToFace(index){
+      // 0..5 mappati alle 6 facce
+      switch(index){
+        case 0: return {x:0,   y:0};
+        case 1: return {x:0,   y:180};
+        case 2: return {x:0,   y:-90};
+        case 3: return {x:0,   y:90};
+        case 4: return {x:-90, y:0};
+        case 5: return {x:90,  y:0};
+      }
+    }
+
     cube.addEventListener("click", () => {
-      // Rotazione casuale
+      // rotazione “lancio”
       const randomX = 720 + Math.floor(Math.random() * 360);
       const randomY = 720 + Math.floor(Math.random() * 360);
       cube.style.transition = "transform 2s ease-out";
@@ -173,26 +188,20 @@
 
       setTimeout(() => {
         const roll = Math.floor(Math.random() * 6);
-        let x = 0, y = 0;
-        switch(roll){
-          case 0: x = 0;   y = 0; break;
-          case 1: x = 0;   y = 180; break;
-          case 2: x = 0;   y = -90; break;
-          case 3: x = 0;   y = 90; break;
-          case 4: x = -90; y = 0; break;
-          case 5: x = 90;  y = 0; break;
-        }
+        const {x, y} = orientToFace(roll);
         cube.style.transition = "transform 1s ease-out";
         cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
 
+        // Aggiorna testo, immagine e descrizione (con fade-in)
         result.textContent = opere[roll].nome;
 
-        operaImg.src = opere[roll].img;
         operaImg.classList.remove("show");
         operaDesc.classList.remove("show");
 
-        void operaImg.offsetWidth; // reset animazione
-        void operaDesc.offsetWidth;
+        operaImg.src = opere[roll].img;
+        operaImg.alt = `Immagine: ${opere[roll].nome}`;
+        // forza reflow per riattivare animazione
+        void operaImg.offsetWidth; void operaDesc.offsetWidth;
 
         operaImg.classList.add("show");
         operaDesc.textContent = opere[roll].desc;
@@ -202,4 +211,5 @@
   </script>
 </body>
 </html>
+
 
