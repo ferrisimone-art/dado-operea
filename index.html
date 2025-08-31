@@ -4,18 +4,25 @@
   <meta charset="UTF-8">
   <title>Dado delle Opere</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Comic Neue', cursive, sans-serif;
       text-align: center;
       padding: 50px;
-      background: #1c4030; /* verdino scuro */
+      background-color: #1c4030; /* verdino scuro */
       color: #fff;
     }
+
     .title {
       font-size: 32px;
       margin-bottom: 20px;
       color: #ffdf6c;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 30px;
     }
 
     /* Cubo 3D ridotto */
@@ -26,6 +33,7 @@
       perspective: 600px;
       cursor: pointer;
     }
+
     .cube {
       width: 100%;
       height: 100%;
@@ -33,6 +41,7 @@
       transform-style: preserve-3d;
       transition: transform 1s;
     }
+
     .face {
       position: absolute;
       width: 50px;
@@ -55,7 +64,12 @@
     .top    { transform: rotateX( 90deg) translateZ(25px); }
     .bottom { transform: rotateX(-90deg) translateZ(25px); }
 
-    #result { margin-top: 30px; font-size: 24px; font-weight: bold; }
+    #result {
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
     #opera-img {
       display: none;
       margin: 30px auto 0 auto;
@@ -102,12 +116,12 @@
       const roll = Math.floor(Math.random() * 6);
       let x = 0, y = 0;
       switch(roll){
-        case 0: x = 0;   y = 0; break;
-        case 1: x = 0;   y = 180; break;
-        case 2: x = 0;   y = -90; break;
-        case 3: x = 0;   y = 90; break;
-        case 4: x = -90; y = 0; break;
-        case 5: x = 90;  y = 0; break;
+        case 0: x = 0;   y = 0; break;    // 1 front
+        case 1: x = 0;   y = 180; break;  // 2 back
+        case 2: x = 0;   y = -90; break;  // 3 left
+        case 3: x = 0;   y = 90; break;   // 4 right
+        case 4: x = -90; y = 0; break;    // 5 top
+        case 5: x = 90;  y = 0; break;    // 6 bottom
       }
       cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
 
@@ -118,6 +132,3 @@
   </script>
 </body>
 </html>
-
-
-
