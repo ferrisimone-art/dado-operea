@@ -2,36 +2,39 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Dado delle Opere</title>
+  <title>Museo Lorenzo Ferri</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400&display=swap');
 
     body {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Raleway', sans-serif;
       text-align: center;
-      padding: 50px;
-      background-color: #1c4030; /* verdino scuro */
+      padding: 40px;
+      background: radial-gradient(circle at top left, #234d35, #1c4030, #12281f);
+      background-attachment: fixed;
       color: #fff;
     }
 
     .title {
-      font-size: 36px;
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
       margin-bottom: 15px;
       color: #ffdf6c;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
     }
 
     h1 {
       margin-bottom: 30px;
       font-size: 24px;
+      color: #eee;
     }
 
     /* Cubo 3D */
     .scene {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       margin: 0 auto;
-      perspective: 800px;
+      perspective: 1000px;
       cursor: pointer;
     }
 
@@ -40,50 +43,65 @@
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 2s ease-out; /* velocità più lenta */
+      transition: transform 2s ease-out;
     }
 
     .face {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       background: #fff;
       border: 2px solid #000;
-      border-radius: 8px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 38px;
       font-weight: bold;
       color: #000;
     }
 
-    .front  { transform: rotateY(  0deg) translateZ(40px); }
-    .back   { transform: rotateY(180deg) translateZ(40px); }
-    .right  { transform: rotateY( 90deg) translateZ(40px); }
-    .left   { transform: rotateY(-90deg) translateZ(40px); }
-    .top    { transform: rotateX( 90deg) translateZ(40px); }
-    .bottom { transform: rotateX(-90deg) translateZ(40px); }
+    .front  { transform: rotateY(  0deg) translateZ(60px); }
+    .back   { transform: rotateY(180deg) translateZ(60px); }
+    .right  { transform: rotateY( 90deg) translateZ(60px); }
+    .left   { transform: rotateY(-90deg) translateZ(60px); }
+    .top    { transform: rotateX( 90deg) translateZ(60px); }
+    .bottom { transform: rotateX(-90deg) translateZ(60px); }
 
     #result {
       margin-top: 30px;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: bold;
+      font-family: 'Playfair Display', serif;
+      color: #ffd966;
     }
 
     #opera-img {
       display: none;
-      margin: 30px auto 0 auto;
-      max-width: 70%;
+      margin: 30px auto 10px auto;
+      max-width: 85%;
       height: auto;
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
       opacity: 0;
-      transition: opacity 1s ease-in; /* effetto fade-in */
+      transition: opacity 1.5s ease-in;
     }
 
     #opera-img.show {
       display: block;
+      opacity: 1;
+    }
+
+    #opera-desc {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #ddd;
+      opacity: 0;
+      transition: opacity 1.5s ease-in;
+    }
+
+    #opera-desc.show {
       opacity: 1;
     }
   </style>
@@ -105,29 +123,54 @@
 
   <div id="result">Clicca sul dado per iniziare</div>
   <img id="opera-img" src="" alt="Opera">
+  <p id="opera-desc"></p>
 
   <script>
     const opere = [
-      {nome: "La Traviata", img: "traviata.jpg"},
-      {nome: "Il Barbiere di Siviglia", img: "barbieredisiviglia.jpg"},
-      {nome: "Don Giovanni", img: "dongiovanni.jpg"},
-      {nome: "Carmen", img: "carmen.jpg"},
-      {nome: "Aida", img: "aida.jpg"},
-      {nome: "Turandot", img: "turandot.jpg"}
+      {
+        nome: "La Traviata",
+        img: "traviata.jpg",
+        desc: "Opera di Giuseppe Verdi, rappresentata per la prima volta nel 1853, una delle più celebri e drammatiche storie d’amore."
+      },
+      {
+        nome: "Il Barbiere di Siviglia",
+        img: "barbieredisiviglia.jpg",
+        desc: "Capolavoro comico di Gioachino Rossini del 1816, con il celebre personaggio di Figaro."
+      },
+      {
+        nome: "Don Giovanni",
+        img: "dongiovanni.jpg",
+        desc: "Opera di Wolfgang Amadeus Mozart, rappresentata nel 1787, dramma giocoso tra passione e destino."
+      },
+      {
+        nome: "Carmen",
+        img: "carmen.jpg",
+        desc: "Opera di Georges Bizet del 1875, ambientata in Spagna, celebre per le sue arie appassionate."
+      },
+      {
+        nome: "Aida",
+        img: "aida.jpg",
+        desc: "Opera di Giuseppe Verdi del 1871, ambientata nell’antico Egitto, tra amore e dovere."
+      },
+      {
+        nome: "Turandot",
+        img: "turandot.jpg",
+        desc: "Ultima opera incompiuta di Giacomo Puccini (1926), con la celebre aria 'Nessun dorma'."
+      }
     ];
 
     const cube = document.getElementById("cube");
     const result = document.getElementById("result");
     const operaImg = document.getElementById("opera-img");
+    const operaDesc = document.getElementById("opera-desc");
 
     cube.addEventListener("click", () => {
-      // Rotazione casuale più lenta
+      // Rotazione casuale
       const randomX = 720 + Math.floor(Math.random() * 360);
       const randomY = 720 + Math.floor(Math.random() * 360);
       cube.style.transition = "transform 2s ease-out";
       cube.style.transform = `rotateX(${randomX}deg) rotateY(${randomY}deg)`;
 
-      // Dopo 2s mostra il risultato
       setTimeout(() => {
         const roll = Math.floor(Math.random() * 6);
         let x = 0, y = 0;
@@ -145,11 +188,18 @@
         result.textContent = opere[roll].nome;
 
         operaImg.src = opere[roll].img;
-        operaImg.classList.remove("show"); // reset
-        void operaImg.offsetWidth; // forza il reflow per riattivare l’animazione
+        operaImg.classList.remove("show");
+        operaDesc.classList.remove("show");
+
+        void operaImg.offsetWidth; // reset animazione
+        void operaDesc.offsetWidth;
+
         operaImg.classList.add("show");
+        operaDesc.textContent = opere[roll].desc;
+        operaDesc.classList.add("show");
       }, 2000);
     });
   </script>
 </body>
 </html>
+
